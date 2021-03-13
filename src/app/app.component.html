@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <form #userForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- one way binding
+     [ngModel]="userModel.name"
+    
+     but we are using two way binding i.e. banana symbol [()]
+    -->
+    <h4>Two way binding</h4>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input required type="text" name="name" id="name" [(ngModel)]="userModel.name"  class="form-control" #name="ngModel" placeHolder="Enter EMPName">
+          <div style="color:red" *ngIf="name.errors && (name.dirty ||name.touched)">
+            <p *ngIf="name.errors.required"> Employee Name is Mandatory
+            </p></div>
+    </div>
+
+    <div class="form-group">
+      <label for="empId">employee ID</label>
+      <input required
+        type="text"
+        name="empId"
+        #empId="ngModel"
+        [class.is-invalid]="empId.invalid"
+        class="form-control"
+        [(ngModel)]="userModel.empId"
+      />
+      <div style="color:red" *ngIf="empId.errors && (empId.dirty ||empId.touched)">
+        <p *ngIf="empId.errors.required"> Employee ID is Mandatory
+        </p></div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        name="email"
+        #email="ngModel"
+        [class.is-invalid]="email.invalid && email.touched"
+        class="form-control"
+        [(ngModel)]="userModel.email"
+      /><br />
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input
+        type="text"
+        name="salary"
+        class="form-control"
+        [(ngModel)]="userModel.salary"
+      /><br />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input
+        type="tel"
+        name="phone"
+        class="form-control"
+        [(ngModel)]="userModel.phone"
+      /><br />
+    </div>
+    <button class="bn btn-primary" type="submit">submit form</button>
+    <br>
+    <hr/>
+    <!-- 
+      displaying | sending date to browser
+     -->
+    <h4>json pipe</h4>     
+    {{ userForm.value | json}}
+    <hr/>
+    {{ userModel | json }}
+    <hr/>
+   </form>
+</div>
+<div>
+  <ul>
+    <li><a routerLink="getData">Get Employee details</a></li>
+    <li><a routerLink="postData">Add Employee Details</a></li>
+  </ul>
+  <router-outlet></router-outlet>
+</div>
